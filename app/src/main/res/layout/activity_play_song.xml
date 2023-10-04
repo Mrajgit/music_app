@@ -10,12 +10,13 @@
         android:id="@+id/imageView"
         android:layout_width="412dp"
         android:layout_height="373dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@string/todo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo"
-        android:contentDescription="@string/todo"
         tools:ignore="VisualLintBounds" />
 
     <SeekBar
