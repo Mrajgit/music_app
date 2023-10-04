@@ -2,13 +2,16 @@ package com.example.musicapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.opengl.Matrix;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -19,13 +22,14 @@ import java.util.concurrent.TimeUnit;
 
 public class PlaySong extends AppCompatActivity {
     TextView songname, playtime, songLength;
-    ImageView play, previous, next;
+    ImageView play, previous, next, logo;
     SeekBar seekBar;
     ArrayList<File> songs;
     MediaPlayer mediaPlayer;
     String textContent;
     int position;
     Thread updateSeek;
+    private static final int ROTATION_DURATION = 10000;
     private volatile boolean isThreadRunning = true;
     private Handler mHandler = new Handler();
     @SuppressLint("MissingInflatedId")
@@ -34,12 +38,20 @@ public class PlaySong extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_song);
         songname = findViewById(R.id.songname);
+        logo = findViewById(R.id.logo);
         play = findViewById(R.id.play);
         previous = findViewById(R.id.previous);
         next = findViewById(R.id.next);
         seekBar = findViewById(R.id.seekBar);
         playtime = findViewById(R.id.playtime);
         songLength = findViewById(R.id.songLength);
+
+//        image rotation
+        ObjectAnimator rotationAnimator = ObjectAnimator.ofFloat(logo, "rotation", 0f, -360f);
+        rotationAnimator.setDuration(ROTATION_DURATION);
+        rotationAnimator.setInterpolator(new LinearInterpolator());
+        rotationAnimator.setRepeatCount(ObjectAnimator.INFINITE);
+        rotationAnimator.start();
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
